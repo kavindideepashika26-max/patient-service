@@ -1,8 +1,13 @@
 package com.example.patient;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-@Repository
+import com.example.patient.patient;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+//Remove @RepositoryRestResource below to disable auto REST api:
+@RepositoryRestResource
 public interface PatientRepository extends JpaRepository<Patient, Long>{
-    
+
 }
+
+    
+
