@@ -12,7 +12,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                git 'https://github.com/kavindideepashika26-max/patient-service'
+                url:'https://github.com/kavindideepashika26-max/patient-service'
             }
         }
 
