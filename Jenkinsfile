@@ -11,7 +11,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git 'YOUR_GITHUB_REPOSITORY_URL'
+                git 'https://github.com/kavindideepashika26-max/patient-service'
             }
         }
 

@@ -1,10 +1,6 @@
 package com.example.patient;
 
 
-import  com.example.patient.Patient;
-import  com.example.patient.PatientService;
-import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor; 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/patients")
+@RequestMapping("patients")
 public class PatientController {
     
     @Autowired
@@ -21,7 +17,7 @@ public class PatientController {
     
     // CREATE - POST
     @PostMapping
-    public ResponseEntity<Patient> createPatient(@Valid @RequestBody Patient patient) {
+    public ResponseEntity<Patient> createPatient(@RequestBody Patient patient) {
         Patient savedPatient = patientService.savePatient(patient);
         return new ResponseEntity<>(savedPatient, HttpStatus.CREATED);
     }
@@ -43,7 +39,7 @@ public class PatientController {
     // UPDATE - PUT
     @PutMapping("/{id}")
     public ResponseEntity<Patient> updatePatient(@PathVariable Long id, 
-                                                   @Valid @RequestBody Patient patient) {
+                                                    @RequestBody Patient patient) {
         Patient updatedPatient = patientService.updatePatient(id, patient);
         return new ResponseEntity<>(updatedPatient, HttpStatus.OK);
     }
