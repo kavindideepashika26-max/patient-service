@@ -21,6 +21,13 @@ pipeline {
                 bat 'mvn clean package -DskipTests'
             }
         }
+        stage('SonarQube Analysis') {
+            steps {
+            withSonarQubeEnv('SonarQube') {
+              bat 'mvn sonar:sonar -Dsonar.projectKey=patient'
+        }
+    }
+}
 
         stage('Docker Build') {
             steps {
