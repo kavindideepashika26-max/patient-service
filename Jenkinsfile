@@ -12,7 +12,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                url:'https://github.com/kavindideepashika26-max/patient-service'
+                    url: 'https://github.com/kavindideepashika26-max/patient-service.git'
             }
         }
 
@@ -21,13 +21,14 @@ pipeline {
                 bat 'mvn clean package -DskipTests'
             }
         }
+
         stage('SonarQube Analysis') {
             steps {
-            withSonarQubeEnv('SonarQube') {
-              bat 'mvn sonar:sonar -Dsonar.projectKey=patient'
+                withSonarQubeEnv('SonarQube') {
+                    bat 'mvn sonar:sonar -Dsonar.projectKey=patient'
+                }
+            }
         }
-    }
-}
 
         stage('Docker Build') {
             steps {
@@ -36,4 +37,3 @@ pipeline {
         }
     }
 }
-
