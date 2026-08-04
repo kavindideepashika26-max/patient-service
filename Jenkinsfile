@@ -4,7 +4,6 @@ pipeline {
 
     tools {
         jdk 'jdk25'
-        maven 'Maven'
     }
 
     stages {
@@ -18,19 +17,19 @@ pipeline {
 
         stage('Build') {
             steps {
-                bat 'mvn clean package -DskipTests'
+                bat 'mvnw.cmd clean package -DskipTests'
             }
         }
 
         stage('SonarQube Analysis') {
-    steps {
-        withSonarQubeEnv('SonarQube') {
-            withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
-                bat "mvn sonar:sonar -Dsonar.projectKey=patient -Dsonar.token=%SONAR_TOKEN%"
+            steps {
+                withSonarQubeEnv('SonarQube') {
+                    withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
+                        bat 'mvnw.cmd sonar:sonar -Dsonar.projectKey=patient -Dsonar.token=%SONAR_TOKEN%'
+                    }
+                }
             }
         }
-    }
-}
 
         stage('Docker Build') {
             steps {
