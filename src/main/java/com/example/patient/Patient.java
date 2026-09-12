@@ -27,15 +27,43 @@ public class Patient {
     @NotNull(message = "Age is required")
     @Min(value = 0, message = "Age must be 0 or greater")
     private Integer age;
+    private String email;
+    private String phoneNumber;
 
     public Patient() {
     }
 
-    public Patient(Long id, String name, String disease, Integer age) {
+
+    public String getEmail() {
+        return email;
+    }
+
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+
+    public Patient(Long id, @NotBlank(message = "Name is required") String name,
+            @NotBlank(message = "Disease is required") String disease,
+            @NotNull(message = "Age is required") @Min(value = 0, message = "Age must be 0 or greater") Integer age,
+            String email, String phoneNumber) {
         this.id = id;
         this.name = name;
         this.disease = disease;
         this.age = age;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
     }
 
     public Long getId() {

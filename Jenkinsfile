@@ -1,9 +1,9 @@
 pipeline {
-
     agent any
 
     tools {
         jdk 'jdk25'
+        maven 'Maven'
     }
 
     stages {
@@ -11,29 +11,23 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/kavindideepashika26-max/patient-service.git'
+                    url: 'https://github.com/kavindideepashika26-max/patient-api.git'
             }
         }
 
         stage('Build') {
             steps {
-                bat 'mvnw.cmd clean package -DskipTests'
-            }
-        }
-
-        stage('SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv('SonarQube') {
-                    withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
-                        bat 'mvnw.cmd sonar:sonar -Dsonar.projectKey=patient -Dsonar.token=%SONAR_TOKEN%'
-                    }
+                dir('student-api') {
+                    bat 'mvn clean package -DskipTests'
                 }
             }
         }
 
         stage('Docker Build') {
             steps {
-                bat 'docker build -t patient .'
+                dir('patient-api') {
+                    bat 'docker build -t patient-api .'
+                }
             }
         }
     }
